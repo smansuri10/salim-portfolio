@@ -38,20 +38,20 @@ git push origin main
 
 ## Color Reference
 
-| Token                    | Hex       | Usage                           |
-| ------------------------ | --------- | ------------------------------- |
-| `--color-navy`           | `#0C447C` | Primary CTAs, buttons           |
-| `--color-navy-deep`      | `#1F3864` | Hover states, headings          |
-| `--color-navy-mid`       | `#185FA5` | Links, skill labels, tagline    |
-| `--color-navy-light`     | `#378ADD` | Dashed borders                  |
-| `--color-navy-tint`      | `#E6F1FB` | Badge backgrounds, subtle fills |
-| `--color-text-primary`   | `#0F1923` | Headings, card titles           |
-| `--color-text-secondary` | `#4A5568` | Body copy                       |
-| `--color-text-tertiary`  | `#8A96A3` | Meta, captions, placeholders    |
-| `--color-bg`             | `#FFFFFF` | Page background                 |
-| `--color-bg-subtle`      | `#F7F9FC` | Card image areas                |
-| `--color-border`         | `#E2E8F0` | Card borders, dividers          |
-| `--color-border-light`   | `#EEF2F7` | Nav border, subtle dividers     |
+| Token                    | Hex       | Usage                             |
+| ------------------------ | --------- | --------------------------------- |
+| `--color-navy`           | `#0C447C` | Primary CTAs, buttons             |
+| `--color-navy-deep`      | `#1F3864` | Hover states, headings            |
+| `--color-navy-mid`       | `#185FA5` | Links, skill labels, tagline      |
+| `--color-navy-light`     | `#378ADD` | Dashed borders                    |
+| `--color-navy-tint`      | `#E6F1FB` | Badge backgrounds, subtle fills   |
+| `--color-text-primary`   | `#0F1923` | Headings, card titles             |
+| `--color-text-secondary` | `#4A5568` | Body copy                         |
+| `--color-text-tertiary`  | `#8A96A3` | Meta, captions, placeholders      |
+| `--color-bg`             | `#FFFFFF` | Page background                   |
+| `--color-bg-subtle`      | `#F7F9FC` | Card image areas, contact section |
+| `--color-border`         | `#E2E8F0` | Card borders, dividers            |
+| `--color-border-light`   | `#EEF2F7` | Nav border, subtle dividers       |
 
 ---
 
@@ -164,6 +164,21 @@ git push origin main
 
 ---
 
+### Contact Section
+- Email link uses `mailto:` — clicking opens the user's mail app directly
+- To update email: find `href="mailto:..."` in the contact section and change the address
+- To update LinkedIn URL: find `href="https://www.linkedin.com/in/..."` and update
+- To update GitHub URL: find `href="https://github.com/..."` and update
+
+### Footer
+- To update copyright year: find `© 2026` in the footer and change the year
+
+### Nav Links
+- To remove a link: delete the `<a>` line from the nav-links block
+- To add a link: add `<a href="#section-id">Label</a>` and make sure the section has a matching `id`
+
+---
+
 ## Status Badge Reference
 
 | Status         | Class                                 | Appearance                     |
@@ -171,6 +186,7 @@ git push origin main
 | In Development | `class="proj-status"`                 | Plain gray text, no background |
 | Live           | `class="proj-status status-live"`     | Green badge                    |
 | In Progress    | `class="proj-status status-progress"` | Navy badge                     |
+| Coursework     | `class="proj-status"`                 | Plain gray text, no background |
 
 ---
 
@@ -201,9 +217,56 @@ git push origin main
 
 ---
 
+## How to Swap Content
+
+### Adding your real photo:
+1. Name your photo file `salim-mansuri-headshot.jpg`
+2. Drop it into `assets/images/`
+3. Find the `.hero-photo` div in `index.html` and replace:
+```html
+<div class="hero-photo">
+  <span>Professional Photo</span>
+</div>
+```
+With:
+```html
+<div class="hero-photo">
+  <img src="assets/images/salim-mansuri-headshot.jpg" alt="Salim Mansuri" />
+</div>
+```
+4. Add this to your CSS to make the image fill the circle:
+```css
+.hero-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+```
+
+### Updating your resume:
+1. Export resume as PDF
+2. Name it exactly `salim-mansuri-resume.pdf`
+3. Drop it into `assets/resume/`
+4. Push — the Download Resume button links there automatically
+
+### Adding a project screenshot:
+1. Take a screenshot of your project
+2. Name it clearly e.g. `run-it-screenshot.png`
+3. Drop it into `assets/images/`
+4. Find the `proj-img` div in the card and replace the SVG with:
+```html
+<div class="proj-img">
+  <img src="assets/images/run-it-screenshot.png" alt="Run It app screenshot" style="width:100%; height:100%; object-fit:cover;">
+</div>
+```
+
+---
+
 ## Design Decision Log
 
 | Decision                                                          | Rationale                                                                     |
+
 
 | DM Sans as body font                                              | Warmer than Inter, still professional. Avoids generic dev-portfolio look.     |
 | CSS custom properties for design system                           | Single source of truth. Change one value, updates everywhere.                 |
@@ -229,3 +292,6 @@ git push origin main
 | Status badges (green LIVE, navy IN PROGRESS, gray IN DEVELOPMENT) | Color-coded at a glance. Green = shipped, navy = in flight, gray = building.  |
 | Card hover: `translateY(-2px)` + shadow                           | Subtle lift signals the card is clickable.                                    |
 | Disabled buttons use `pointer-events: none`                       | Prevents clicking placeholder links on in-progress cards.                     |
+| Removed Skills from nav                                           | Skills live inside About section. Three clean links reads as intentional.     |
+| Contact section light gray background                             | Visual contrast separates it from Projects without a heavy divider.           |
+| mailto: link for email                                            | Opens user's mail app directly — no contact form needed for a portfolio.      |
